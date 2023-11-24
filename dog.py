@@ -59,7 +59,10 @@ class Dog():
 		return self.direction
 	
 	def get_action(self):
-		return self.action
+		if self.direction == Directions.LEFT.value:
+			return self.action
+		else:
+			return self.action - self.NUM_ANIMATIONS
 	
 	def get_frame(self):
 		return self.frame

@@ -3,10 +3,15 @@
 #@todo: get mysql db connection going
 import mysql.connector as conn
 import pygame as pg
+from pygame import mixer
 import random
 import spritesfunctions as sf
 import button
 import dog
+
+#mixer allows us to load sounds
+pg.mixer.pre_init(44100, -16, 2, 512)
+mixer.init()
 pg.init()
 
 #region setup
@@ -32,13 +37,31 @@ stop_img = pg.image.load('.\\Menu Buttons\\Large Buttons\\Large Buttons\\Quit Bu
 start_button = button.Button(200, 100, start_img, .8)
 quit_button = button.Button(200, 400, stop_img, .8)
 
+#load menu music
+pg.mixer.music.load('Music\\Abstraction - Ludum Dare 28 Loops\\Ludum Dare 28 - Track 1.wav')
+pg.mixer.music.set_volume(.5)#50% original volume
+pg.mixer.music.play(-1, 0.0, 5000)
+
+#load menu sounds
+confirm_fx = pg.mixer.Sound('sfx\\menu\\confirm tones\\confirm_style_2_001.wav')
+
+back_fx = pg.mixer.Sound('sfx\\menu\\back tones\\back_style_2_001.wav')
+
+error_fx = pg.mixer.Sound('sfx\\menu\\error tones\\error_style_2_001.wav')
+
+cursor_fx = pg.mixer.Sound('sfx\\menu\\cursor_style_2.wav')
+
 #menu loop
 while menu_running:
 	screen.fill((202, 228, 241))
 
+	# if start_button.rect.collidepoint(pg.mouse.get_pos()) or quit_button.rect.collidepoint(pg.mouse.get_pos()):
+	# 	cursor_fx.play()
 	if start_button.draw(screen):
+		confirm_fx.play()
 		menu_running = False
 	if quit_button.draw(screen):
+		back_fx.play()
 		menu_running = False
 		game_running = False
 
@@ -53,6 +76,15 @@ while menu_running:
 #endregion
 
 #region game loop
+
+#load game music
+pg.mixer.music.load('Music\\Abstraction - Ludum Dare 28 Loops\\Ludum Dare 28 - Track 8.wav')
+pg.mixer.music.set_volume(.5)#50% original volume
+pg.mixer.music.play(-1, 0.0, 5000)
+
+#load game sounds
+reward_fx = pg.mixer.Sound('sfx\\game\\MI_SFX 43.wav')
+
 goodboi_dest = (SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT - 160)
 goodboi = dog.Dog(dog.Directions.LEFT.value, dog.Actions.STAND_IDLE.value, goodboi_dest)
 
@@ -100,9 +132,11 @@ while game_running:
 			#user action handlers
 			elif event.key == pg.K_KP_ENTER or event.key == pg.K_RETURN:
 				if goodboi.is_sitting():
+					reward_fx.play()
 					print("good boy!")
 				else:
-					print("incorrect time for reward")
+					error_fx.play()
+					print(dog.Actions(goodboi.get_action()).name, ": incorrect time for reward")
 	
 	pg.display.update()
 #endregion
