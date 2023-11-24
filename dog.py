@@ -30,7 +30,7 @@ class Dog():
 		self.frame = 0
 		self.animation_cooldown = 100 #milliseconds
 		self.last_update = pg.time.get_ticks()
-		#@todo: make functions for screen_dest access and mutation
+		#@todo: make functions for screen_dest mutation
 		self.screen_dest = screen_dest
 		#constants
 		self.SPRITE_WIDTH = 60
@@ -60,6 +60,18 @@ class Dog():
 	
 	def get_action(self):
 		return self.action
+	
+	def get_frame(self):
+		return self.frame
+	
+	def get_animation_cooldown(self):
+		return self.animation_cooldown
+	
+	def get_last_update(self):
+		return self.last_update
+	
+	def get_screen_dest(self):
+		return self.screen_dest
 #endregion
 	
 #region mutators
@@ -86,10 +98,8 @@ class Dog():
 			self.frame = 0
 
 	def change_action_random(self):
-		if self.direction == Directions.LEFT.value:
-			self.__change_action(random.randint(0, self.NUM_ANIMATIONS - 1))
-		else:
-			self.__change_action(random.randint(self.NUM_ANIMATIONS, self.NUM_ANIMATIONS * 2 - 1))
+		self.__change_action(random.randint(0, self.NUM_ANIMATIONS - 1))
+
 #endregion
 
 #region helper functions

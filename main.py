@@ -3,6 +3,7 @@
 #@todo: get mysql db connection going
 import mysql.connector as conn
 import pygame as pg
+import random
 import spritesfunctions as sf
 import button
 import dog
@@ -15,6 +16,7 @@ BACKGROUND = pg.image.load('.\\Backgrounds\\Free Pixel Art Forest\\Preview\\Back
 
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pg.display.set_caption('what da dog doin?')
+random.seed()
 
 game_running = True
 menu_running = True
@@ -54,9 +56,19 @@ while menu_running:
 goodboi_dest = (SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT - 160)
 goodboi = dog.Dog(dog.Directions.LEFT.value, dog.Actions.STAND_IDLE.value, goodboi_dest)
 
+last_update = pg.time.get_ticks()
+action_change_time = goodboi.get_animation_cooldown() * random.randint(1, 10) * 5
+
 while game_running:
 	#update background
 	screen.blit(BACKGROUND, (0, 0))
+	
+	#change goodboi action at random intervals between .5 and 5 seconds
+	current_time = pg.time.get_ticks()
+	if current_time - last_update >= action_change_time:
+		goodboi.change_action_random()
+		last_update = current_time
+		action_change_time = goodboi.get_animation_cooldown() * random.randint(1, 10) * 5
 
 	#update animation
 	goodboi.update_animation(screen)

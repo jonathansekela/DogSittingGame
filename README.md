@@ -10,8 +10,8 @@
 	- you tell the dog to sit
 	- the dog sits after a random time
 	- you press the 'reward' button
-		- if it's within .2 seconds then good job. otherwise you gotta be quicker than that!
-	- 3 times in a row, you win...?
+		- time it takes between sit and reward is recorded and sent to db
+	- at end of game, show their score
 
 ## elements of the program
 3 parts to every game:
