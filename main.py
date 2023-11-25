@@ -5,12 +5,11 @@ import mysql.connector as conn
 import pygame as pg
 from pygame import mixer
 import random
-import spritesfunctions as sf
 import button
 import dog
 
 #mixer allows us to load sounds
-pg.mixer.pre_init(44100, -16, 2, 512)
+pg.mixer.pre_init(44100, -16, 2, 512)#I have no idea what these mean, Coding with Russ set these arguments like this
 mixer.init()
 pg.init()
 
@@ -20,7 +19,7 @@ SCREEN_HEIGHT = 793
 BACKGROUND = pg.image.load('.\\Backgrounds\\Free Pixel Art Forest\\Preview\\Background.png')
 
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pg.display.set_caption('what da dog doin?')
+pg.display.set_caption('Sit, Boy!')
 random.seed()
 
 game_running = True
@@ -44,17 +43,15 @@ pg.mixer.music.play(-1, 0.0, 5000)
 
 #load menu sounds
 confirm_fx = pg.mixer.Sound('sfx\\menu\\confirm tones\\confirm_style_2_001.wav')
-
 back_fx = pg.mixer.Sound('sfx\\menu\\back tones\\back_style_2_001.wav')
-
 error_fx = pg.mixer.Sound('sfx\\menu\\error tones\\error_style_2_001.wav')
-
 cursor_fx = pg.mixer.Sound('sfx\\menu\\cursor_style_2.wav')
 
 #menu loop
 while menu_running:
 	screen.fill((202, 228, 241))
 
+	#@todo: cursor_fx currently plays 6 seconds repeating as long as colliding with button. Cut the sfx down and make it only play once per mouseover.
 	# if start_button.rect.collidepoint(pg.mouse.get_pos()) or quit_button.rect.collidepoint(pg.mouse.get_pos()):
 	# 	cursor_fx.play()
 	if start_button.draw(screen):
@@ -96,6 +93,7 @@ while game_running:
 	screen.blit(BACKGROUND, (0, 0))
 	
 	#change goodboi action at random intervals between .5 and 5 seconds
+	#@todo: make update pause when goodboi.is_sitting(), keep track of time between sit and reward
 	current_time = pg.time.get_ticks()
 	if current_time - last_update >= action_change_time:
 		goodboi.change_action_random()

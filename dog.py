@@ -30,8 +30,7 @@ class Dog():
 		self.frame = 0
 		self.animation_cooldown = 100 #milliseconds
 		self.last_update = pg.time.get_ticks()
-		#@todo: make functions for screen_dest mutation
-		self.screen_dest = screen_dest
+		self.screen_dest = screen_dest #@todo: make functions for screen_dest mutation
 		#constants
 		self.SPRITE_WIDTH = 60
 		self.SPRITE_HEIGHT = 38
@@ -44,7 +43,6 @@ class Dog():
 
 		self.sprite_sheet_image_right = pg.image.load('.\\Sprites\\Dog_medium_Right.png').convert_alpha()
 		self.sprite_sheet_right = spritesheet.SpriteSheet(self.sprite_sheet_image_right)
-
 
 		self.animation_list = []
 		sf.createAnimationListLeft(self.animation_list, self.ANIMATION_STEPS, self.sprite_sheet_left, self.SPRITE_WIDTH, self.SPRITE_HEIGHT, self.BLACK)
@@ -82,13 +80,13 @@ class Dog():
 		if direction == Directions.LEFT.value or direction == Directions.RIGHT.Value:
 			self.direction = direction
 		else:
-			raise Exception("invalid value for direction")
+			raise Exception("invalid value for direction: ", direction)
 	
 	def set_action(self, action):
 		if action >= 0 and action < self.NUM_ANIMATIONS * 2:
 			self.action = action
 		else:
-			raise Exception("invalid value for action")
+			raise Exception("invalid value for action: ", action)
 #endregion
 
 #region class utility functions
