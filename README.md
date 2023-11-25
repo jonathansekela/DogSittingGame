@@ -21,7 +21,7 @@
 
 the big parts of this game:
 1. sprite animations
-	- stand, lick, sit
+	- stand, lick, sit, walk, run
 2. random time pass
 	- a random double value translated to seconds - 1-5 seconds
 3. menu
@@ -37,3 +37,19 @@ the big parts of this game:
 	- event handler
 	- game loop
 	- window
+
+## features left to implement
+- [ ] IRB
+- [ ] participant consent forms
+- [ ] participant demographics forms
+- [ ] db connection
+	- [ ] insert, update, delete, etc. queries (figure out the specific ones you need)
+	- [ ] demographics data handling
+	- [ ] user reward data handling
+- [ ] user reward system
+	- [ ] basic instructions in the game loop: when the dog sits down completely, press the enter/return key to reward them.
+- [ ] game instructions page
+	- [ ] potential instruction locations:
+		- [ ] on start menu
+		- [ ] behind a menu button to access instructions
+		- [ ] behind a game button to access instructions (pauses game while this happens)
