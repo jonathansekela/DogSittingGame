@@ -16,7 +16,7 @@ pg.init()
 #region setup
 SCREEN_WIDTH = 928
 SCREEN_HEIGHT = 793
-BACKGROUND = pg.image.load('.\\Backgrounds\\Free Pixel Art Forest\\Preview\\Background.png')
+BACKGROUND = pg.image.load('./Backgrounds/Free Pixel Art Forest/Preview/Background.png')
 
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pg.display.set_caption('Sit, Boy!')
@@ -29,23 +29,23 @@ menu_running = True
 #region game menu
 
 #load button images
-start_img = pg.image.load('.\\Menu Buttons\\Large Buttons\\Large Buttons\\Play Button.png').convert_alpha()
-stop_img = pg.image.load('.\\Menu Buttons\\Large Buttons\\Large Buttons\\Quit Button.png').convert_alpha()
+start_img = pg.image.load('./Menu Buttons/Large Buttons/Large Buttons/Play Button.png').convert_alpha()
+stop_img = pg.image.load('./Menu Buttons/Large Buttons/Large Buttons/Quit Button.png').convert_alpha()
 
 #create button instances
 start_button = button.Button(200, 100, start_img, .8)
 quit_button = button.Button(200, 400, stop_img, .8)
 
 #load menu music
-pg.mixer.music.load('Music\\Abstraction - Ludum Dare 28 Loops\\Ludum Dare 28 - Track 1.wav')
+pg.mixer.music.load('Music/Abstraction - Ludum Dare 28 Loops/Ludum Dare 28 - Track 1.wav')
 pg.mixer.music.set_volume(.5)#50% original volume
 pg.mixer.music.play(-1, 0.0, 5000)
 
 #load menu sounds
-confirm_fx = pg.mixer.Sound('sfx\\menu\\confirm tones\\confirm_style_2_001.wav')
-back_fx = pg.mixer.Sound('sfx\\menu\\back tones\\back_style_2_001.wav')
-error_fx = pg.mixer.Sound('sfx\\menu\\error tones\\error_style_2_001.wav')
-cursor_fx = pg.mixer.Sound('sfx\\menu\\cursor_style_2.wav')
+confirm_fx = pg.mixer.Sound('sfx/menu/confirm tones/confirm_style_2_001.wav')
+back_fx = pg.mixer.Sound('sfx/menu/back tones/back_style_2_001.wav')
+error_fx = pg.mixer.Sound('sfx/menu/error tones/error_style_2_001.wav')
+cursor_fx = pg.mixer.Sound('sfx/menu/cursor_style_2.wav')
 
 #menu loop
 while menu_running:
@@ -75,12 +75,12 @@ while menu_running:
 #region game loop
 
 #load game music
-pg.mixer.music.load('Music\\Abstraction - Ludum Dare 28 Loops\\Ludum Dare 28 - Track 8.wav')
+pg.mixer.music.load('Music/Abstraction - Ludum Dare 28 Loops/Ludum Dare 28 - Track 8.wav')
 pg.mixer.music.set_volume(.5)#50% original volume
 pg.mixer.music.play(-1, 0.0, 5000)
 
 #load game sounds
-reward_fx = pg.mixer.Sound('sfx\\game\\MI_SFX 43.wav')
+reward_fx = pg.mixer.Sound('sfx/game/MI_SFX 43.wav')
 
 goodboi_dest = (SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT - 160)
 goodboi = dog.Dog(dog.Directions.LEFT.value, dog.Actions.STAND_IDLE.value, goodboi_dest)
