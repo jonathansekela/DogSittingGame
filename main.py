@@ -135,6 +135,11 @@ while game_running:
 				else:
 					error_fx.play()
 					print(dog.Actions(goodboi.get_action()).name, ": incorrect time for reward")
+			#test db conn
+			elif event.key == pg.K_i:
+				print("inserting into test_deez...")
+			elif event.key == pg.K_s:
+				print("selecting from test_deez..")
 	
 	pg.display.update()
 #endregion
