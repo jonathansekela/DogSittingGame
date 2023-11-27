@@ -38,10 +38,10 @@ class Dog():
 		self.ANIMATION_STEPS = [4, 6, 5, 3, 4, 4] #number of frames in each animation
 		self.NUM_ANIMATIONS = 7 #lick, walk, run, sit, sit idle, stand idle, stand
 		
-		self.sprite_sheet_image_left = pg.image.load('.\\Sprites\\Dog_medium_Left.png').convert_alpha()
+		self.sprite_sheet_image_left = pg.image.load('./Sprites/Dog_medium_Left.png').convert_alpha()
 		self.sprite_sheet_left = spritesheet.SpriteSheet(self.sprite_sheet_image_left)
 
-		self.sprite_sheet_image_right = pg.image.load('.\\Sprites\\Dog_medium_Right.png').convert_alpha()
+		self.sprite_sheet_image_right = pg.image.load('./Sprites/Dog_medium_Right.png').convert_alpha()
 		self.sprite_sheet_right = spritesheet.SpriteSheet(self.sprite_sheet_image_right)
 
 		self.animation_list = []
@@ -77,7 +77,7 @@ class Dog():
 	
 #region mutators
 	def set_direction(self, direction):
-		if direction == Directions.LEFT.value or direction == Directions.RIGHT.Value:
+		if direction == Directions.LEFT.value or direction == Directions.RIGHT.value:
 			self.direction = direction
 		else:
 			raise Exception("invalid value for direction: ", direction)
