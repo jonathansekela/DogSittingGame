@@ -7,13 +7,14 @@ from pygame import mixer
 import random
 import button
 import dog
+import sqlconn
 
 #mixer allows us to load sounds
 pg.mixer.pre_init(44100, -16, 2, 512)#I have no idea what these mean, Coding with Russ set these arguments like this
 mixer.init()
 pg.init()
 
-#region setup
+#region general setup
 SCREEN_WIDTH = 928
 SCREEN_HEIGHT = 793
 BACKGROUND = pg.image.load('./Backgrounds/Free Pixel Art Forest/Preview/Background.png')
@@ -24,6 +25,10 @@ random.seed()
 
 game_running = True
 menu_running = True
+#endregion
+
+#region sqlconn setup
+sqlConnector = sqlconn.SqlConn("localhost", "root", "Thug4Lyfe")
 #endregion
 
 #region game menu
@@ -137,7 +142,9 @@ while game_running:
 					print(dog.Actions(goodboi.get_action()).name, ": incorrect time for reward")
 			#test db conn
 			elif event.key == pg.K_i:
+				#@todo: the insert works!
 				print("inserting into test_deez...")
+				sqlConnector.insert("", "")
 			elif event.key == pg.K_s:
 				print("selecting from test_deez..")
 	
