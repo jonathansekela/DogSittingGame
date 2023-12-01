@@ -28,7 +28,7 @@ menu_running = True
 #endregion
 
 #region sqlconn setup
-sqlConnector = sqlconn.SqlConn("localhost", "root", "Thug4Lyfe")
+sqlConnector = sqlconn.SqlConn("", "", "", "")
 #endregion
 
 #region game menu
