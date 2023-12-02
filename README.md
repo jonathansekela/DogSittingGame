@@ -43,9 +43,9 @@ the big parts of this game:
 - [ ] participant consent forms
 - [ ] participant demographics forms
 - [ ] db connection
-	- [ ] insert, update, delete, etc. queries (figure out the specific ones you need)
-	- [ ] demographics data handling
-	- [ ] user reward data handling
+	- [ ] animation update insert event
+	- [ ] user input update insert event
+	- [ ] demographics data collection
 - [ ] user reward system
 	- [ ] basic instructions in the game loop: when the dog sits down completely, press the enter/return key to reward them.
 - [ ] game instructions page
