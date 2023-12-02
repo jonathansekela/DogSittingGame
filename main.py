@@ -16,6 +16,7 @@ mixer.init()
 pg.init()
 
 # region general setup
+
 SCREEN_WIDTH = 928
 SCREEN_HEIGHT = 793
 BACKGROUND = pg.image.load(
@@ -30,6 +31,7 @@ menu_running = True
 # endregion
 
 # region sqlconn setup
+
 sqlConnector = sqlconn.SqlConn("", "", "", "")
 # endregion
 
@@ -111,6 +113,7 @@ while game_running:
 		goodboi.change_action_random()
 		last_update = current_time
 		action_change_time = goodboi.get_animation_cooldown() * random.randint(1, 10) * 5
+		#@todo: add sqlconn.animation_change() logic
 
 	# update animation
 	goodboi.update_animation(screen)
@@ -141,6 +144,7 @@ while game_running:
 				goodboi.stand_idle()
 			# user action handlers
 			elif event.key == pg.K_KP_ENTER or event.key == pg.K_RETURN:
+				#@todo: add sqlconn.user_input() logic
 				if goodboi.is_sitting():
 					reward_fx.play()
 					print("good boy!")

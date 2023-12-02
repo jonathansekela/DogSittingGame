@@ -7,11 +7,9 @@ import random
 
 # region enums
 
-
 class Directions(Enum):
 	LEFT = 0
 	RIGHT = 1
-
 
 class Actions(Enum):
 	LICK = 0
@@ -22,7 +20,6 @@ class Actions(Enum):
 	STAND_IDLE = 5
 	STAND = 6
 # endregion
-
 
 class Dog():
 
