@@ -32,7 +32,7 @@ menu_running = True
 
 # region sqlconn setup
 
-sqlConnector = sqlconn.SqlConn("", "", "", "")
+sqlEventHandler = sqlconn.SqlConn("", "", "", "")
 # endregion
 
 # region game menu
@@ -112,8 +112,8 @@ while game_running:
 	if current_time - last_update >= action_change_time:
 		goodboi.change_action_random()
 		last_update = current_time
+		sqlEventHandler.animation_change(1, goodboi.get_action())
 		action_change_time = goodboi.get_animation_cooldown() * random.randint(1, 10) * 5
-		#@todo: add sqlconn.animation_change() logic
 
 	# update animation
 	goodboi.update_animation(screen)
@@ -143,22 +143,18 @@ while game_running:
 				goodboi.stand()
 				goodboi.stand_idle()
 			# user action handlers
-			elif event.key == pg.K_KP_ENTER or event.key == pg.K_RETURN:
+			elif event.key == pg.K_KP_ENTER or event.key == pg.K_RETURN or event.key == pg.MOUSEBUTTONDOWN:
 				#@todo: add sqlconn.user_input() logic
 				if goodboi.is_sitting():
+					sqlEventHandler.user_input(1, "give_reward", goodboi.get_action(), True)
 					reward_fx.play()
 					print("good boy!")
+					#@todo: give user feedback on-screen
 				else:
+					sqlEventHandler.user_input(1, "give_reward", goodboi.get_action(), False)
 					error_fx.play()
-					print(dog.Actions(goodboi.get_action()).name,
-						  ": incorrect time for reward")
-			# test db conn @todo: get rid of test keys
-			elif event.key == pg.K_i:
-				# the insert works!
-				print("inserting into test_deez...")
-				sqlConnector.insert("", "")
-			elif event.key == pg.K_s:
-				print("selecting from test_deez..")
+					print(dog.Actions(goodboi.get_action()).name, ": incorrect time for reward")
+					#@todo: give user feedback on-screen
 
 	pg.display.update()
 # endregion

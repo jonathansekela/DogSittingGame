@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import mysql.connector as conn
+from datetime import datetime
 import dog #for Directions and Actions enums
 
 class SqlConn():
@@ -31,19 +32,20 @@ class SqlConn():
 		val = [()]
 		self.__insert(qry, val)
 
-	#@todo: implement function logic
+	#@todo: test function
+	#@todo: translate datetime.now() into mysql datetime format
 	def animation_change(self, user_id, new_animation):
 		print("animation change detected. Inserting into db...")
-		qry = "INSERT INTO game_data (user_id, user_input, animation, input_is_correct, time_to_input_ms) VALUES (%s, [INPUT], %s, [INPUT_CORRECT], [INPUT_TIME])"
-		val = [()]
+		qry = "INSERT INTO game_data (user_id, user_input, animation, input_is_correct, time_to_input_ms) VALUES (%s, 2, %s, 0, %s)" #2 is 'None' input
+		val = [(user_id, new_animation, datetime.now())]
 		self.__insert(qry, val)
-		
 
-	#@todo: implement function logic
-	def user_input(self, user_id, user_input, current_animation):
+	#@todo: test function
+	#@todo: translate datetime.now() into mysql datetime format
+	def user_input(self, user_id, user_input, current_animation, input_is_correct):
 		print("user input detected. Inserting into db..")
-		qry = ""
-		val = [()]
+		qry = "INSERT INTO game_data (user_id, user_input, animation, input_is_correct, time_to_input_ms) VALUES (%s, %s, %s, %s, %s)"
+		val = [(user_id, user_input, current_animation, input_is_correct, datetime.now())]
 		self.__insert(qry, val)
 #endregion
 
@@ -53,26 +55,21 @@ class SqlConn():
 	# val: array of value tuples to insert
 	def __insert(self, qry, val):
 		# @todo: get rid of example queries
-		# qry = "INSERT INTO test_deez (id, describe_deez) VALUES (%s, %s)"
-		# val = [(1, "my name jeff"), (2, "my name also jeff")]
 		self.cursor.executemany(qry, val)
-
 		self.db.commit()
-
 		print(self.cursor.rowcount, "record(s) inserted")
 
 	# qry: the sql query string
 	def __select(self, qry):
 		self.cursor.execute(qry)
-		myresult = self.cursor.fetchall()
+		result = self.cursor.fetchall()
 
-		for x in myresult:
+		for x in result:
 			print(x)
 
 	# qry: the sql query string
 	def __update(self, qry):
 		self.cursor.execute(qry)
 		self.db.commit()
-
 		print(self.db.rowcount, "record(s) affected")
 #endregion
