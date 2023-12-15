@@ -32,20 +32,18 @@ class SqlConn():
 		val = [()]
 		self.__insert(qry, val)
 
-	#@todo: test function
 	#@todo: translate datetime.now() into mysql datetime format
 	def animation_change(self, user_id, new_animation):
 		print("animation change detected. Inserting into db...")
-		qry = "INSERT INTO game_data (user_id, user_input, animation, input_is_correct, time_to_input_ms) VALUES (%s, 2, %s, 0, %s)" #2 is 'None' input
-		val = [(user_id, new_animation, datetime.now())]
+		qry = "INSERT INTO game_data (user_id, user_input, animation, input_is_correct, event_time) VALUES (%s, 2, %s, 0, %s)" #2 is 'None' input
+		val = [(user_id, new_animation, datetime.now().strftime('%F %T.%f')[:-3])]
 		self.__insert(qry, val)
 
-	#@todo: test function
 	#@todo: translate datetime.now() into mysql datetime format
 	def user_input(self, user_id, user_input, current_animation, input_is_correct):
 		print("user input detected. Inserting into db..")
-		qry = "INSERT INTO game_data (user_id, user_input, animation, input_is_correct, time_to_input_ms) VALUES (%s, %s, %s, %s, %s)"
-		val = [(user_id, user_input, current_animation, input_is_correct, datetime.now())]
+		qry = "INSERT INTO game_data (user_id, user_input, animation, input_is_correct, event_time) VALUES (%s, %s, %s, %s, %s)"
+		val = [(user_id, user_input, current_animation, input_is_correct, datetime.now().strftime('%F %T.%f')[:-3])]
 		self.__insert(qry, val)
 #endregion
 
@@ -54,7 +52,6 @@ class SqlConn():
 	# qry: the sql query string
 	# val: array of value tuples to insert
 	def __insert(self, qry, val):
-		# @todo: get rid of example queries
 		self.cursor.executemany(qry, val)
 		self.db.commit()
 		print(self.cursor.rowcount, "record(s) inserted")

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-# @todo: get mysql db connection going
 import mysql.connector as conn
 import pygame as pg
 from pygame import mixer
@@ -8,6 +7,12 @@ import random
 import button
 import dog
 import sqlconn
+
+#region debug/test values
+
+#@todo: get rid of debug/test values
+TEST_USER_ID = 1
+#endregion
 
 # mixer allows us to load sounds
 # I have no idea what these mean, Coding with Russ set these arguments like this
@@ -112,7 +117,7 @@ while game_running:
 	if current_time - last_update >= action_change_time:
 		goodboi.change_action_random()
 		last_update = current_time
-		sqlEventHandler.animation_change(1, goodboi.get_action())
+		sqlEventHandler.animation_change(TEST_USER_ID, goodboi.get_action())
 		action_change_time = goodboi.get_animation_cooldown() * random.randint(1, 10) * 5
 
 	# update animation
@@ -144,14 +149,13 @@ while game_running:
 				goodboi.stand_idle()
 			# user action handlers
 			elif event.key == pg.K_KP_ENTER or event.key == pg.K_RETURN or event.key == pg.MOUSEBUTTONDOWN:
-				#@todo: add sqlconn.user_input() logic
 				if goodboi.is_sitting():
-					sqlEventHandler.user_input(1, "give_reward", goodboi.get_action(), True)
+					sqlEventHandler.user_input(TEST_USER_ID, 1, goodboi.get_action(), True)
 					reward_fx.play()
 					print("good boy!")
 					#@todo: give user feedback on-screen
 				else:
-					sqlEventHandler.user_input(1, "give_reward", goodboi.get_action(), False)
+					sqlEventHandler.user_input(TEST_USER_ID, 1, goodboi.get_action(), False)
 					error_fx.play()
 					print(dog.Actions(goodboi.get_action()).name, ": incorrect time for reward")
 					#@todo: give user feedback on-screen
